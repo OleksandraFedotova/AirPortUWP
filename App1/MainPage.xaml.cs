@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using App1.Pages;
+using App1.Pages.AirCrafts;
+using App1.Pages.AirCraftTypes;
 using App1.Pages.Pilots;
 using App1.Pages.Stewardesses;
 
@@ -41,22 +44,22 @@ namespace App1
 
         private void Button_Click3(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PilotsPage));
+            this.Frame.Navigate(typeof(TicketsPage));
         }
 
         private void Button_Click4(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PilotsPage));
+            this.Frame.Navigate(typeof(AirCraftTypesPage));
         }
 
         private void Button_Click5(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PilotsPage));
+            this.Frame.Navigate(typeof(AirCraftsPage));
         }
 
         private void Button_Click6(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PilotsPage));
+            this.Frame.Navigate(typeof(TicketsPage));
         }
 
         private void Button_Click7(object sender, RoutedEventArgs e)

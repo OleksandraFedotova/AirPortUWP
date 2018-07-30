@@ -1,19 +1,17 @@
 ﻿<Page
-    x:Class="App1.Pages.Pilots.PilotsPage"
+    x:Class="App1.Pages.AirCraftTypes.AirCraftTypesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:App1.Pages.Pilots"
+    xmlns:local="using:App1.Pages.AirCraftTypes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    
-
     <Grid>
-      
+
         <Grid >
-            <ListView  ItemsSource="{x:Bind Pilots}" SelectionChanged="SelectedPilot">
+            <ListView  ItemsSource="{x:Bind AirCraftTypes}" SelectionChanged="SelectedAirCraftType">
                 <ListView.HeaderTemplate>
                     <DataTemplate >
                         <Grid  Padding="10" Background="AntiqueWhite" >
@@ -22,19 +20,17 @@
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock  Grid.Column="1" Text="Id" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="2" Text="FirstName" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="3" Text="LastName" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="4" Text="DateOfBirth" Style="{ThemeResource CaptionTextBlockStyle}"/>
-                            <TextBlock Grid.Column="5" Text="Experience" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="2" Text="Model" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="3" Text="Plases" Style="{ThemeResource CaptionTextBlockStyle}"/>
+                            <TextBlock Grid.Column="4" Text="LoadCapacity" Style="{ThemeResource CaptionTextBlockStyle}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
                 <ListView.ItemTemplate >
-                    <DataTemplate x:Name="PilotDataTemplate" x:DataType="local:Pilot" >
+                    <DataTemplate x:Name="AirCraftTypeDataTemplate" x:DataType="local:AirCraftType" >
                         <Grid Height="48" AutomationProperties.Name="{x:Bind Id }"  >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"/>
@@ -42,13 +38,11 @@
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Id}" />
-                            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind FirstName}"/>
-                            <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind LastName}"/>
-                            <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{x:Bind DateOfBirth}"/>
-                            <TextBlock Grid.Column="5" VerticalAlignment="Center" Text="{x:Bind Experience}"/>
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind Model}"/>
+                            <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind Places}"/>
+                            <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{x:Bind LoadCapacity}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -56,7 +50,7 @@
         </Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
             <Button Content="Back to main page" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Bottom" Width="500" Click="Button_Click"/>
-            <Button Content="Create new Pilot" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Bottom" Width="500" Click="Create_Pilot"/>
+            <Button Content="Create new AirCraftType" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Bottom" Width="500" Click="Create_AirCraftType"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -99,6 +99,24 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AirCrafts\AirCraftPage.xaml.cs">
+      <DependentUpon>AirCraftPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AirCrafts\AirCraftsPage.xaml.cs">
+      <DependentUpon>AirCraftsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AirCrafts\CreateAirCraftPage.xaml.cs">
+      <DependentUpon>CreateAirCraftPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AirCraftTypes\AirCraftTypePage.xaml.cs">
+      <DependentUpon>AirCraftTypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AirCraftTypes\AirCraftTypesPage.xaml.cs">
+      <DependentUpon>AirCraftTypesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AirCraftTypes\CreateAirCraftType.xaml.cs">
+      <DependentUpon>CreateAirCraftType.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Pilots\CreatePilotPage.xaml.cs">
       <DependentUpon>CreatePilotPage.xaml</DependentUpon>
     </Compile>
@@ -108,11 +126,23 @@
     <Compile Include="Pages\Pilots\PilotPage.xaml.cs">
       <DependentUpon>PilotPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Stewardesses\CreateStewardessPage.xaml.cs">
+      <DependentUpon>CreateStewardessPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Stewardesses\StewardessesPage.xaml.cs">
       <DependentUpon>StewardessesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Stewardesses\StewardessPage.xaml.cs">
       <DependentUpon>StewardessPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TicketsPage.xaml.cs">
+      <DependentUpon>TicketsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Tickets\CreateTicketPage.xaml.cs">
+      <DependentUpon>CreateTicketPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Tickets\TicketPage.xaml.cs">
+      <DependentUpon>TicketPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +153,7 @@
     <None Include="App1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\airport.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -141,6 +172,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\AirCrafts\AirCraftPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AirCrafts\AirCraftsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AirCrafts\CreateAirCraftPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AirCraftTypes\AirCraftTypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AirCraftTypes\AirCraftTypesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AirCraftTypes\CreateAirCraftType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Pilots\CreatePilotPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,11 +208,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Stewardesses\CreateStewardessPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Stewardesses\StewardessesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Stewardesses\StewardessPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TicketsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Tickets\CreateTicketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Tickets\TicketPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,6 +241,7 @@
       <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

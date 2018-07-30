@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="App1.Pages.Pilots.CreatePilotPage"
+    x:Class="App1.Pages.Stewardesses.CreateStewardessPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:App1.Pages.Pilots"
+    xmlns:local="using:App1.Pages.Stewardesses"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -13,10 +13,9 @@
             <TextBox PlaceholderText="firstName"  x:Name="FirstName"/>
             <TextBox PlaceholderText="lastName"  x:Name="LastName"/>
             <TextBox PlaceholderText="DateOfBirth"  x:Name="DateOfBirth" />
-            <TextBox PlaceholderText="Experience"  x:Name="Experience"/>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                <Button Content="Back to Stewardesses Page"  Height="80" Margin="10,10,0,0" VerticalAlignment="Bottom" Width="500" Click="BackToList"/>
-                <Button Content="Create"  Height="80"  VerticalAlignment="Bottom" Width="500" Click="CreatePilot"/>
+                <Button Content="Back to Pilots Page"  Height="80" Margin="10,10,0,0" VerticalAlignment="Bottom" Width="500" Click="BackToList"/>
+                <Button Content="Create"  Height="80"  VerticalAlignment="Bottom" Width="500" Click="CreateStewardess"/>
             </StackPanel>
         </StackPanel>
     </Grid>

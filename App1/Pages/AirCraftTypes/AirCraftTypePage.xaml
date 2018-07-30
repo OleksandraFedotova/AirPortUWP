@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="App1.Pages.AirCraftTypes.AirCraftTypePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1.Pages.AirCraftTypes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="{x:Bind AirCraftTypeData.Id}"/>
+            <TextBox Text="{x:Bind AirCraftTypeData.Model}"  x:Name="Model"/>
+            <TextBox Text="{x:Bind AirCraftTypeData.Places}" x:Name="Seats"/>
+            <TextBox Text="{x:Bind AirCraftTypeData.LoadCapacity}" x:Name="LoadCapacity" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Content="Back to AirCraftTypes Page"  Height="134" Margin="10,10,0,0" VerticalAlignment="Bottom" Width="346" Click="BackToList"/>
+                <Button Content="Update"  Height="134"  VerticalAlignment="Bottom" Width="346" Click="Update"/>
+                <Button Content="Delete"  Height="134"  VerticalAlignment="Bottom" Width="346" Click="Delete"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

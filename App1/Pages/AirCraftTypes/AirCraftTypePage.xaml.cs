@@ -1,41 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using App1.Pages.Pilots;
 using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace App1.Pages.Stewardesses
+namespace App1.Pages.AirCraftTypes
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class StewardessPage : Page
+    public sealed partial class AirCraftTypePage : Page
     {
-        private Stewardess StewardessData { get; set; }
-        public StewardessPage()
+        private AirCraftType AirCraftTypeData { get; set; }
+
+        public AirCraftTypePage()
         {
             this.InitializeComponent();
         }
+
         private void BackToList(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(StewardessesPage));
+            this.Frame.Navigate(typeof(AirCraftTypesPage));
         }
 
         private async void Update(object sender, RoutedEventArgs e)
         {
-            var p = new Stewardess
+            var p = new AirCraftType
             {
-                Id = StewardessData.Id,
-                FirstName = FirstName.Text,
-                LastName = LastName.Text,
-
-                DateOfBirth = Convert.ToDateTime(DateOfBirth.Text)
+                Id = AirCraftTypeData.Id,
+                Model = Model.Text,
+                Places = Convert.ToInt32(Seats.Text),
+                LoadCapacity = Convert.ToInt32(LoadCapacity.Text),
             };
 
             using (var client = new HttpClient())
@@ -46,7 +56,7 @@ namespace App1.Pages.Stewardesses
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
 
-                string url = App.BaseUrl + "stewardesses/" + StewardessData.Id;
+                string url = App.BaseUrl + "AirCraftTypes/" + AirCraftTypeData.Id;
 
                 var result = client.PutAsync(new Uri(url), byteContent).ConfigureAwait(false).GetAwaiter().GetResult();
 
@@ -58,7 +68,7 @@ namespace App1.Pages.Stewardesses
                 }
                 else
                 {
-                    this.Frame.Navigate(typeof(StewardessesPage));
+                    this.Frame.Navigate(typeof(AirCraftTypesPage));
                 }
             }
         }
@@ -70,7 +80,7 @@ namespace App1.Pages.Stewardesses
             using (var client = new HttpClient())
 
             {
-                string b = App.BaseUrl + "stewardesses/" + StewardessData.Id;
+                string b = App.BaseUrl + "AirCraftTypes/" + AirCraftTypeData.Id;
                 var result = client.DeleteAsync(new Uri(b)).ConfigureAwait(false).GetAwaiter().GetResult();
                 if (!result.IsSuccessStatusCode)
                 {
@@ -80,17 +90,20 @@ namespace App1.Pages.Stewardesses
                 }
                 else
                 {
-                    this.Frame.Navigate(typeof(StewardessesPage));
+                    this.Frame.Navigate(typeof(AirCraftTypesPage));
                 }
 
             }
+
+
+            this.Frame.Navigate(typeof(AirCraftTypesPage));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            StewardessData = (Stewardess)e.Parameter;
+            AirCraftTypeData = (AirCraftType)e.Parameter;
 
             // parameters.Name
             // parameters.Text

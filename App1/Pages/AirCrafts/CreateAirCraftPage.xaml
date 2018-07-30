@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="App1.Pages.AirCrafts.CreateAirCraftPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1.Pages.AirCrafts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:App1.Pages.AirCraftTypes"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel>
+            <TextBox PlaceholderText="name"  x:Name="Name"/>
+            <TextBox PlaceholderText="typeId"  x:Name="TypeId"/>
+            <TextBox PlaceholderText="timeSpan"  x:Name="TimeSpan" />
+            <TextBox PlaceholderText="releaseDate"  x:Name="ReleaseDate" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Content="Back to AirCraftTypes Page"  Height="80" Margin="10,10,0,0" VerticalAlignment="Bottom" Width="500" Click="BackToList"/>
+                <Button Content="Create"  Height="80"  VerticalAlignment="Bottom" Width="500" Click="CreateAirCraft"/>
+            </StackPanel>
+            <TextBlock IsTextSelectionEnabled="True" Name="Types" MinWidth="1200" MinHeight="100"  VerticalAlignment="Bottom"></TextBlock>
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -10,7 +10,7 @@
 
     <Grid>
 
-        <Grid Margin="30">
+        <Grid >
             <ListView  ItemsSource="{x:Bind Stewardesses}" SelectionChanged="SelectedStewardess">
                 <ListView.HeaderTemplate>
                     <DataTemplate >
@@ -22,6 +22,7 @@
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Column="0" Text="AIRPORT APP/ PILOTS" Style="{ThemeResource CaptionTextBlockStyle}"/>
                             <TextBlock  Grid.Column="1" Text="Id" Style="{ThemeResource CaptionTextBlockStyle}"/>
                             <TextBlock Grid.Column="2" Text="FirstName" Style="{ThemeResource CaptionTextBlockStyle}"/>
                             <TextBlock Grid.Column="3" Text="LastName" Style="{ThemeResource CaptionTextBlockStyle}"/>
@@ -48,6 +49,9 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <Button Content="Back to main page" HorizontalAlignment="Left" Height="134"  VerticalAlignment="Bottom" Width="346" Click="Button_Click"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+            <Button Content="Back to main page" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Bottom" Width="500" Click="Button_Click"/>
+            <Button Content="Create new Stewardess" HorizontalAlignment="Left" Height="80"  VerticalAlignment="Bottom" Width="500" Click="Create_Stewardess"/>
+        </StackPanel>
     </Grid>
 </Page>

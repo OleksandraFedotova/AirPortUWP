@@ -9,17 +9,20 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Background="LightGreen" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1342" >
-            <Button Content="Pilots"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click1" BorderBrush="Black" BorderThickness="2 2 0 2"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Background="AntiqueWhite" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1490" >
+            <Button Width="170" Height="67"  VerticalAlignment="Center" BorderBrush="Black" BorderThickness="0 2 0 2" >AIRPORT APP</Button>
+            <Button Content="Pilots"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click1" BorderBrush="Black" BorderThickness="1 2 0 2"/>
             <Button Content="Stewardesses"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click2" BorderBrush="Black" BorderThickness="1 2 0 2"/>
-            <Button Content="Crews" Height="67"  VerticalAlignment="Top" Width="150" Click="Button_Click3" BorderBrush="Black" BorderThickness="1 1 0 2"/>
+            <Button Content="Crews" Height="67"  VerticalAlignment="Top" Width="150"  BorderBrush="Black" Background="Crimson" BorderThickness="1 1 0 2"/>
             <Button Content="AircraftTypes"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click4" BorderBrush="Black" BorderThickness="1 2 0 2"/>
             <Button Content="Aircrafts"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click5" BorderBrush="Black" BorderThickness="1 2 0 2"/>
             <Button Content="Tickets"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click6" BorderBrush="Black" BorderThickness="1 2 0 2"/>
-            <Button Content="Flight"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click7" BorderBrush="Black" BorderThickness="1 2 0 2"/>
-            <Button Content="Departures"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click8"  BorderBrush="Black" BorderThickness="1 2 2 2"/>
+            <Button Content="Flight"  Height="67"  VerticalAlignment="Top" Width="170" Background="Crimson" BorderBrush="Black" BorderThickness="1 2 0 2"/>
+            <Button Content="Departures"  Height="67"  VerticalAlignment="Top" Width="170"   Background="Crimson" BorderBrush="Black" BorderThickness="1 2 2 2"/>
         </StackPanel>
-
+      <StackPanel>
+<Image HorizontalAlignment="Center " Source="../Assets/airport.jpg" Width="1500px" Margin=" 0 120"></Image>
+      </StackPanel>
 
     </Grid>
 </Page>

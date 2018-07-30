@@ -9,6 +9,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <StackPanel>
+            <TextBlock Text="{x:Bind StewardessData.Id}"/>
+            <TextBox Text="{x:Bind StewardessData.FirstName}"  x:Name="FirstName"/>
+            <TextBox Text="{x:Bind StewardessData.LastName}" x:Name="LastName"/>
+            <TextBox Text="{x:Bind StewardessData.DateOfBirth}" x:Name="DateOfBirth" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Content="Back to Pilots Page"  Height="80" Margin="10,10,0,0" VerticalAlignment="Bottom" Width="490" Click="BackToList"/>
+                <Button Content="Update"  Height="80"  VerticalAlignment="Bottom" Width="490" Click="Update"/>
+                <Button Content="Delete"  Height="80"  VerticalAlignment="Bottom" Width="490" Click="Delete"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>
