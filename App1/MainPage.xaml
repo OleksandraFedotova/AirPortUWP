@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="App1.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Background="LightGreen" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1342" >
+            <Button Content="Pilots"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click1" BorderBrush="Black" BorderThickness="2 2 0 2"/>
+            <Button Content="Stewardesses"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click2" BorderBrush="Black" BorderThickness="1 2 0 2"/>
+            <Button Content="Crews" Height="67"  VerticalAlignment="Top" Width="150" Click="Button_Click3" BorderBrush="Black" BorderThickness="1 1 0 2"/>
+            <Button Content="AircraftTypes"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click4" BorderBrush="Black" BorderThickness="1 2 0 2"/>
+            <Button Content="Aircrafts"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click5" BorderBrush="Black" BorderThickness="1 2 0 2"/>
+            <Button Content="Tickets"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click6" BorderBrush="Black" BorderThickness="1 2 0 2"/>
+            <Button Content="Flight"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click7" BorderBrush="Black" BorderThickness="1 2 0 2"/>
+            <Button Content="Departures"  Height="67"  VerticalAlignment="Top" Width="170" Click="Button_Click8"  BorderBrush="Black" BorderThickness="1 2 2 2"/>
+        </StackPanel>
+
+
+    </Grid>
+</Page>
