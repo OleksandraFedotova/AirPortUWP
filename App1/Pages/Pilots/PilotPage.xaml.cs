@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,9 +17,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.Web.Http;
 using Newtonsoft.Json;
-
+using System.Net.Http;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace App1
@@ -27,6 +29,7 @@ namespace App1
     public sealed partial class PilotPage : Page
     {
         private Pilot PilotData { get; set; }
+
         public PilotPage()
         {
             this.InitializeComponent();
@@ -37,7 +40,7 @@ namespace App1
             this.Frame.Navigate(typeof(PilotsPage));
         }
 
-        private void Update(object sender, RoutedEventArgs e)
+        private async void Update(object sender, RoutedEventArgs e)
         {
             var p = new Pilot
             {
@@ -48,31 +51,54 @@ namespace App1
                 DateOfBirth = Convert.ToDateTime(DateOfBirth.Text)
             };
 
-            this.Frame.Navigate(typeof(PilotsPage));
+            using (var client = new HttpClient())
+            {
+                var myContent = JsonConvert.SerializeObject(p);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+
+                string url = App.BaseUrl + "pilots/" + PilotData.Id;
+
+                var result = client.PutAsync(new Uri(url), byteContent).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (!result.IsSuccessStatusCode)
+                {
+                    MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
+                    await showDialog.ShowAsync();
+
+                }
+                else
+                {
+                    this.Frame.Navigate(typeof(PilotsPage));
+                }
+            }
         }
 
-        private void Delete(object sender, RoutedEventArgs e)
+
+        private async void Delete(object sender, RoutedEventArgs e)
         {
-           
+
             using (var client = new HttpClient())
 
             {
-
-                // Send a POST  
-
-                Task task = Task.Run(async () =>
-
+                string b = App.BaseUrl + "pilots/" + PilotData.Id;
+                var result = client.DeleteAsync(new Uri(b)).ConfigureAwait(false).GetAwaiter().GetResult();
+                if (!result.IsSuccessStatusCode)
                 {
-                    string b = App.BaseUrl + "pilot/"+PilotData.Id;
-                    await client.DeleteAsync(new Uri(b));
+                    MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
+                    await showDialog.ShowAsync();
 
-                });
-
-                task.Wait();
+                }
+                else
+                {
+                    this.Frame.Navigate(typeof(PilotsPage));
+                }
 
             }
 
-            
+
             this.Frame.Navigate(typeof(PilotsPage));
         }
 
@@ -80,7 +106,7 @@ namespace App1
         {
             base.OnNavigatedTo(e);
 
-           PilotData = (Pilot)e.Parameter;
+            PilotData = (Pilot)e.Parameter;
 
             // parameters.Name
             // parameters.Text

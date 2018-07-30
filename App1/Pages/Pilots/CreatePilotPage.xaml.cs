@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -42,7 +43,7 @@ namespace App1.Pages.Pilots
 
         private async void CreatePilot(object sender, RoutedEventArgs e)
         {
-            var p = new Pilot
+            var p = new PilotModel
             {
                 FirstName = FirstName.Text,
                 LastName = LastName.Text,
@@ -53,36 +54,43 @@ namespace App1.Pages.Pilots
             using (var client = new HttpClient())
 
             {
-                client.DefaultRequestHeaders
-                    .Accept
-                    .Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
-                var c = JsonConvert.SerializeObject(p);
+                var myContent = JsonConvert.SerializeObject(p);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                // Send a POST  
 
-                    string url = App.BaseUrl + "pilots/";
-                    var pairs =new List<KeyValuePair<string, string>>
+                string url = App.BaseUrl + "pilots/";
+
+                var result = client.PostAsync(new Uri(url), byteContent).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                    if (!result.IsSuccessStatusCode)
                     {
-                        new KeyValuePair<string, string>("firstName", p.FirstName),
-                        new KeyValuePair<string, string>("lastName", p.LastName),
-                        new KeyValuePair<string, string>("dateOfBirth", p.DateOfBirth.ToString()),
-                        new KeyValuePair<string, string>("experience", p.Experience.ToString()),
-                    };
-                    var content = new FormUrlEncodedContent(pairs);
+                    MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
+                        await showDialog.ShowAsync();
 
-                    var result =  client.PostAsync(new Uri(url), content).ConfigureAwait(false).GetAwaiter().GetResult();
-                    if (result.IsSuccessStatusCode)
+                }
+                    else
                     {
-                        // Get the URI of the created resource.
-                        Uri gizmoUrl = result.Headers.Location;
-                    }
-
+                    this.Frame.Navigate(typeof(PilotsPage));
+                }
               
 
             }
 
 
-            this.Frame.Navigate(typeof(PilotsPage));
+           
         }
+    }
+
+    public class PilotModel
+    {
+        [JsonProperty("firstName")] public string FirstName { get; set; }
+
+        [JsonProperty("lastName")] public string LastName { get; set; }
+
+        [JsonProperty("dateOfBirth")] public DateTime DateOfBirth { get; set; }
+
+        [JsonProperty("experience")] public int Experience { get; set; }
     }
 }
