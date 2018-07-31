@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,36 +31,47 @@ namespace App1
 
         private async void Update(object sender, RoutedEventArgs e)
         {
-            var p = new Pilot
+
+            if (ValidatePilot() == false)
             {
-                Id = PilotData.Id,
-                FirstName = FirstName.Text,
-                LastName = LastName.Text,
-                Experience = Convert.ToInt32(Experience.Text),
-                DateOfBirth = Convert.ToDateTime(DateOfBirth.Text)
-            };
+                MessageDialog showDialog = new MessageDialog("Please check your inputs");
+                await showDialog.ShowAsync();
 
-            using (var client = new HttpClient())
+            }
+            else
             {
-                var myContent = JsonConvert.SerializeObject(p);
-                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-                var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-
-                string url = App.BaseUrl + "pilots/" + PilotData.Id;
-
-                var result = client.PutAsync(new Uri(url), byteContent).ConfigureAwait(false).GetAwaiter().GetResult();
-
-                if (!result.IsSuccessStatusCode)
+                var p = new Pilot
                 {
-                    MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
-                    await showDialog.ShowAsync();
+                    Id = PilotData.Id,
+                    FirstName = FirstName.Text,
+                    LastName = LastName.Text,
+                    Experience = Convert.ToInt32(Experience.Text),
+                    DateOfBirth = Convert.ToDateTime(DateOfBirth.Text)
+                };
 
-                }
-                else
+                using (var client = new HttpClient())
                 {
-                    this.Frame.Navigate(typeof(PilotsPage));
+                    var myContent = JsonConvert.SerializeObject(p);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                    var byteContent = new ByteArrayContent(buffer);
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+
+                    string url = App.BaseUrl + "pilots/" + PilotData.Id;
+
+                    var result = client.PutAsync(new Uri(url), byteContent).ConfigureAwait(false).GetAwaiter()
+                        .GetResult();
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
+                        await showDialog.ShowAsync();
+
+                    }
+                    else
+                    {
+                        this.Frame.Navigate(typeof(PilotsPage));
+                    }
                 }
             }
         }
@@ -88,6 +100,27 @@ namespace App1
 
 
             this.Frame.Navigate(typeof(PilotsPage));
+        }
+
+        public bool ValidatePilot()
+        {
+            var DateRegex = new Regex(@"(0{0,1}[1-9])|(1/d)|(2/d)|(3[0-1])/(0{0,1}[1-9])|(1[0-2])/([1-9]/d):(0{0,1}/d)|(1/d)|(2[0-4]):(0{0,1}/d)|([1-5]/d)");
+
+
+            /*@"[({]?[a-zA-Z0-9]{8}[-]?([a-zA-Z0-9]{4}[-]?){3}[a-zA-Z0-9]{12}[})]?"*/
+
+            if (string.IsNullOrWhiteSpace(FirstName.Text) || string.IsNullOrWhiteSpace(LastName.Text) ||
+                string.IsNullOrWhiteSpace(DateOfBirth.Text) || string.IsNullOrWhiteSpace(Experience.Text))
+            {
+                return false;
+            }
+
+            if (!DateRegex.IsMatch(DateOfBirth.Text))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

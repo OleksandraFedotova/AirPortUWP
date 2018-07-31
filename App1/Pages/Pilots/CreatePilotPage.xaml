@@ -5,15 +5,21 @@
     xmlns:local="using:App1.Pages.Pilots"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:extensions="using:WinRTXamlToolkit.Controls.Extensions"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <StackPanel>
-            <TextBox PlaceholderText="firstName"  x:Name="FirstName"/>
-            <TextBox PlaceholderText="lastName"  x:Name="LastName"/>
-            <TextBox PlaceholderText="DateOfBirth"  x:Name="DateOfBirth" />
-            <TextBox PlaceholderText="Experience"  x:Name="Experience"/>
+            <TextBox extensions:FieldValidationExtensions.Format="NonEmpty"
+                     extensions:FieldValidationExtensions.InvalidBrush="Red" PlaceholderText="firstName"  x:Name="FirstName"/>
+            <TextBox extensions:FieldValidationExtensions.Format="NonEmpty"
+                     extensions:FieldValidationExtensions.InvalidBrush="Red" PlaceholderText="lastName"  x:Name="LastName"/>
+            <TextBox extensions:FieldValidationExtensions.Format="NonEmpty" 
+                     extensions:FieldValidationExtensions.Pattern="^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$" 
+                     extensions:FieldValidationExtensions.InvalidBrush="Red" PlaceholderText="DateOfBirth"  x:Name="DateOfBirth" />
+            <TextBox extensions:FieldValidationExtensions.Format="NonEmptyNumeric"
+                     extensions:FieldValidationExtensions.InvalidBrush="Red" PlaceholderText="Experience"  x:Name="Experience"/>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
                 <Button Content="Back to Stewardesses Page"  Height="80" Margin="10,10,0,0" VerticalAlignment="Bottom" Width="500" Click="BackToList"/>
                 <Button Content="Create"  Height="80"  VerticalAlignment="Bottom" Width="500" Click="CreatePilot"/>

@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -29,6 +31,17 @@ namespace App1.Pages.Pilots
 
         private async void CreatePilot(object sender, RoutedEventArgs e)
         {
+
+            if (ValidatePilot() == false)
+            {
+                MessageDialog showDialog = new MessageDialog("Please check your inputs");
+                await showDialog.ShowAsync();
+
+            }
+            else
+            {
+               
+
             var p = new PilotModel
             {
                 FirstName = FirstName.Text,
@@ -56,16 +69,32 @@ namespace App1.Pages.Pilots
                         await showDialog.ShowAsync();
 
                 }
-                    else
-                    {
-                    this.Frame.Navigate(typeof(PilotsPage));
-                }
-              
+
+          
 
             }
+                this.Frame.Navigate(typeof(PilotsPage));
+            }
+        }
 
+        public  bool ValidatePilot()
+        {
+            var DateRegex = new Regex(@"(0{0,1}[1-9])|(1/d)|(2/d)|(3[0-1])/(0{0,1}[1-9])|(1[0-2])/([1-9]/d):(0{0,1}/d)|(1/d)|(2[0-4]):(0{0,1}/d)|([1-5]/d)");
 
+            /*@"[({]?[a-zA-Z0-9]{8}[-]?([a-zA-Z0-9]{4}[-]?){3}[a-zA-Z0-9]{12}[})]?"*/
+
+            if (string.IsNullOrWhiteSpace(FirstName.Text) || string.IsNullOrWhiteSpace(LastName.Text) ||
+                string.IsNullOrWhiteSpace(DateOfBirth.Text) || string.IsNullOrWhiteSpace(Experience.Text))
+            {
+                return false;
+            }
+
+            if (!DateRegex.IsMatch(DateOfBirth.Text))
+            {
+                return false;
+            }
            
+            return true;
         }
     }
 
