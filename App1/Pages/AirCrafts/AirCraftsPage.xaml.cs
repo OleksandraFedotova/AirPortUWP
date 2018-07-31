@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -33,8 +34,8 @@ namespace App1.Pages.AirCrafts
         public AirCraftsPage()
         {
             this.InitializeComponent();
-            using (var client = new HttpClient())
-
+            var client = new HttpClient();
+            try
             {
 
                 var response = "";
@@ -43,22 +44,16 @@ namespace App1.Pages.AirCrafts
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task task = Task.Run(async () =>
-
-                {
-
-                    response = await client.GetStringAsync(App.BaseUrl + "AirCrafts");
-
-                });
-
-                task.Wait(); // Wait  
+                    response =  client.GetStringAsync(App.BaseUrl + "AirCrafts").ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var airCrafts = JsonConvert.DeserializeObject<AirCraftsList>(response);
                 AirCrafts = airCrafts.AirCrafts;
-
-
             }
-
+            catch (Exception e)
+            {
+                MessageDialog showDialog = new MessageDialog("Something wrong with getting data!!! Maybe there is no conection to server");
+                showDialog.ShowAsync();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

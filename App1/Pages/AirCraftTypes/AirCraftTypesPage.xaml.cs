@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,8 +33,8 @@ namespace App1.Pages.AirCraftTypes
         public AirCraftTypesPage()
         {
             this.InitializeComponent();
-            using (var client = new HttpClient())
-
+         var client = new HttpClient();
+            try
             {
 
                 var response = "";
@@ -42,20 +43,17 @@ namespace App1.Pages.AirCraftTypes
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task task = Task.Run(async () =>
-
-                {
-
-                    response = await client.GetStringAsync(App.BaseUrl + "AirCraftTypes");
-
-                });
-
-                task.Wait(); // Wait  
+                    response =  client.GetStringAsync(App.BaseUrl + "AirCraftTypes").ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var airCraftTypes = JsonConvert.DeserializeObject<AirCraftTypesList>(response);
                 AirCraftTypes = airCraftTypes.airCraftTypes;
 
 
+            }
+            catch (Exception e)
+            {
+                MessageDialog showDialog = new MessageDialog("Something wrong with getting data!!! Maybe there is no conection to server");
+                showDialog.ShowAsync();
             }
 
         }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -17,14 +18,13 @@ namespace App1.Pages
     /// </summary>
     public sealed partial class TicketsPage : Page
     {
-
         public IEnumerable<Ticket> Tickets { get; set; }
 
         public TicketsPage()
         {
             this.InitializeComponent();
-            using (var client = new HttpClient())
-
+            var client = new HttpClient();
+            try
             {
 
                 var response = "";
@@ -33,22 +33,16 @@ namespace App1.Pages
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task task = Task.Run(async () =>
-
-                {
-
-                    response = await client.GetStringAsync(App.BaseUrl + "Tickets");
-
-                });
-
-                task.Wait(); // Wait  
+                response = client.GetStringAsync(App.BaseUrl + "Tickets").ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var tickets = JsonConvert.DeserializeObject<TicketsList>(response);
                 Tickets = tickets.Tickets;
-
-
             }
-
+            catch (Exception e)
+            {
+                MessageDialog showDialog = new MessageDialog("Something wrong with getting data!!! Maybe there is no conection to server");
+                showDialog.ShowAsync();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

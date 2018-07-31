@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -22,8 +23,8 @@ namespace App1.Pages.Pilots
         public PilotsPage()
         {
             this.InitializeComponent();
-            using (var client = new HttpClient())
-
+            var client = new HttpClient();
+            try
             {
 
                 var response = "";
@@ -32,20 +33,18 @@ namespace App1.Pages.Pilots
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task task = Task.Run(async () =>
-
-                {
-
-                    response = await client.GetStringAsync(App.BaseUrl+ "pilots");
-
-                });
-
-                task.Wait(); // Wait  
+                response = client.GetStringAsync(App.BaseUrl + "pilots").ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var pilots = JsonConvert.DeserializeObject<PilotsList>(response);
                 Pilots = pilots.Pilots;
 
 
+            }
+            catch (Exception e)
+            {
+
+                MessageDialog showDialog = new MessageDialog("Something wrong with getting data!!! Maybe there is no conection to server");
+                showDialog.ShowAsync();
             }
 
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
@@ -21,8 +22,8 @@ namespace App1.Pages.Stewardesses
         public StewardessesPage()
         {
             this.InitializeComponent();
-            using (var client = new HttpClient())
-
+            var client = new HttpClient();
+            try
             {
 
                 var response = "";
@@ -31,22 +32,16 @@ namespace App1.Pages.Stewardesses
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task task = Task.Run(async () =>
-
-                {
-
-                    response = await client.GetStringAsync(App.BaseUrl+"stewardesses");
-
-                });
-
-                task.Wait(); // Wait  
+                    response = client.GetStringAsync(App.BaseUrl+"stewardesses").ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var stewardesses = JsonConvert.DeserializeObject<StewardessList>(response);
                 Stewardesses = stewardesses.Stewardesses;
-
-
             }
-
+            catch (Exception e)
+            {
+                MessageDialog showDialog = new MessageDialog("Something wrong with getting data!!! Maybe there is no conection to server");
+                showDialog.ShowAsync();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
