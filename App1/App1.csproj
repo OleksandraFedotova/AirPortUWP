@@ -145,7 +145,7 @@
       <DependentUpon>TicketPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\PilotsService.cs" />
+    <Compile Include="Services\PilotService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

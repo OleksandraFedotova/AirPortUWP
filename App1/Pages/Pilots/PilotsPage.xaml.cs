@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using App1.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,34 +20,24 @@ namespace App1.Pages.Pilots
     {
 
         public IEnumerable<Pilot> Pilots { get; set; }
+        public PilotService _pilotService;
 
         public PilotsPage()
         {
+                _pilotService = new PilotService();
+
+
             this.InitializeComponent();
-            var client = new HttpClient();
             try
             {
-
-                var response = "";
-
-                client.MaxResponseContentBufferSize = 266000;
-
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                response = client.GetStringAsync(App.BaseUrl + "pilots").ConfigureAwait(false).GetAwaiter().GetResult();
-
-                var pilots = JsonConvert.DeserializeObject<PilotsList>(response);
-                Pilots = pilots.Pilots;
-
-
+                var pilots = _pilotService.GetAll();
+                Pilots = pilots.Result.Pilots;
             }
             catch (Exception e)
             {
-
                 MessageDialog showDialog = new MessageDialog("Something wrong with getting data!!! Maybe there is no conection to server");
                 showDialog.ShowAsync();
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

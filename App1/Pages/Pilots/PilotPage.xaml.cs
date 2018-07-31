@@ -8,6 +8,8 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using App1.Services;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace App1
@@ -17,11 +19,14 @@ namespace App1
     /// </summary>
     public sealed partial class PilotPage : Page
     {
+        public PilotService _pilotService;
+
         private Pilot PilotData { get; set; }
 
         public PilotPage()
         {
             this.InitializeComponent();
+            _pilotService=new PilotService();
         }
 
         private void BackToList(object sender, RoutedEventArgs e)
@@ -49,57 +54,17 @@ namespace App1
                     DateOfBirth = Convert.ToDateTime(DateOfBirth.Text)
                 };
 
-                using (var client = new HttpClient())
-                {
-                    var myContent = JsonConvert.SerializeObject(p);
-                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-                    var byteContent = new ByteArrayContent(buffer);
-                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+               await _pilotService.Update(p);
 
 
-                    string url = App.BaseUrl + "pilots/" + PilotData.Id;
-
-                    var result = client.PutAsync(new Uri(url), byteContent).ConfigureAwait(false).GetAwaiter()
-                        .GetResult();
-
-                    if (!result.IsSuccessStatusCode)
-                    {
-                        MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
-                        await showDialog.ShowAsync();
-
-                    }
-                    else
-                    {
-                        this.Frame.Navigate(typeof(PilotsPage));
-                    }
-                }
+                this.Frame.Navigate(typeof(PilotsPage));
             }
         }
 
-
         private async void Delete(object sender, RoutedEventArgs e)
         {
-
-            using (var client = new HttpClient())
-
-            {
-                string b = App.BaseUrl + "pilots/" + PilotData.Id;
-                var result = client.DeleteAsync(new Uri(b)).ConfigureAwait(false).GetAwaiter().GetResult();
-                if (!result.IsSuccessStatusCode)
-                {
-                    MessageDialog showDialog = new MessageDialog("Something wrong with posting data!!!");
-                    await showDialog.ShowAsync();
-
-                }
-                else
-                {
-                    this.Frame.Navigate(typeof(PilotsPage));
-                }
-
-            }
-
-
-            this.Frame.Navigate(typeof(PilotsPage));
+           await _pilotService.Delete(PilotData);
+             this.Frame.Navigate(typeof(PilotsPage));
         }
 
         public bool ValidatePilot()
